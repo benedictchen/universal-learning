@@ -27,9 +27,30 @@ pip install universal-learning
 
 ```python
 import universal_learning
+import numpy as np
 
-# Example usage
-print("✅ Universal Learning loaded successfully!")
+# Create universal learner
+learner = universal_learning.UniversalLearner(
+    alphabet_size=2,
+    max_program_length=100
+)
+
+# Simple binary sequence learning
+sequence = [0, 1, 0, 1, 0, 1]  # Alternating pattern
+
+# Learn from sequence
+learner.observe_sequence(sequence)
+
+# Predict next symbols
+prediction = learner.predict_next(sequence[-3:])
+print(f"✅ Predicted next symbol: {prediction.symbol}")
+print(f"✅ Confidence: {prediction.probability:.4f}")
+
+# Use Solomonoff induction directly
+inductor = universal_learning.SolomonoffInductor()
+inductor.update(sequence)
+next_prob = inductor.predict_next()
+print(f"✅ Solomonoff prediction probabilities: {next_prob}")
 ```
 
 ## 🎓 About the Implementation
