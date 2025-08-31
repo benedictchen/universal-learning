@@ -13,9 +13,9 @@
 
 # Universal Learning
 
-🌟 Theoretically optimal learning via algorithmic information theory and Solomonoff induction
+🧠 AIXI theoretical framework
 
-**Solomonoff, R. J. (1964)** - "A Formal Theory of Inductive Inference"
+**Hutter, M. (2005) - "Universal Artificial Intelligence"**
 
 ## 📦 Installation
 
@@ -23,11 +23,32 @@
 pip install universal-learning
 ```
 
+## 🚀 Quick Start
+
+```python
+import universal_learning
+
+# Example usage
+print("✅ Universal Learning loaded successfully!")
+```
+
 ## 🎓 About the Implementation
 
 Implemented by **Benedict Chen** - bringing foundational AI research to modern Python.
 
 📧 Contact: benedict@benedictchen.com
+
+## 📖 Citation
+
+If you use this implementation in your research, please cite the original paper:
+
+```bibtex
+Hutter, M. (2005) - "Universal Artificial Intelligence"
+```
+
+## 📜 License
+
+Custom Non-Commercial License with Donation Requirements - See LICENSE file for details.
 
 ---
 
