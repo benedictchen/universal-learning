@@ -32,8 +32,9 @@ Funding = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=
 Sponsor = "https://github.com/sponsors/benedictchen"
 
 [tool.hatch.build.targets.wheel]
-py-modules = ["universal_learning", "solomonoff_induction", "aixi", "kolmogorov_complexity"]
+packages = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = ["--cov=universal_learning", "--cov-report=term-missing"]
+pythonpath = ["src"]
+addopts = ["--cov=src/universal_learning", "--cov-report=term-missing"]
