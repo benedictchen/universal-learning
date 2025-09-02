@@ -212,7 +212,26 @@ from typing import Dict, List, Tuple, Any, Optional, Union
 import zlib
 import lzma
 import heapq
-from .solomonoff_config import ComplexityMethod, CompressionAlgorithm
+from enum import Enum
+
+
+class ComplexityMethod(Enum):
+    """Methods for approximating Kolmogorov complexity"""
+    BASIC_PATTERNS = "basic_patterns"
+    COMPRESSION_BASED = "compression"
+    UNIVERSAL_TURING = "utm"
+    CONTEXT_TREE = "context_tree"
+    HYBRID = "hybrid"
+
+
+class CompressionAlgorithm(Enum):
+    """Compression algorithms for complexity approximation"""
+    ZLIB = "zlib"
+    LZMA = "lzma"
+    BZIP2 = "bzip2"
+    LZ77 = "lz77"
+    RLE = "rle"
+    ALL = "all"
 
 
 class ProgramGenerationMixin:
