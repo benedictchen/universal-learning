@@ -17,10 +17,18 @@ def _print_attribution():
         print("   benedict@benedictchen.com")
         print("   Support: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WXQKYYKPHWXHS")
 
-from .universal_learning import UniversalLearner, HypothesisProgram, Prediction
-from .solomonoff_induction import SolomonoffInductor
-from .aixi import AIXIAgent
-from .kolmogorov_complexity import KolmogorovComplexityEstimator
+# Import from src layout structure
+try:
+    from .src.universal_learning import *
+except ImportError:
+    # Fallback to flat layout files if src import fails
+    try:
+        from .universal_learning import UniversalLearner, HypothesisProgram, Prediction
+        from .solomonoff_induction import SolomonoffInductor
+        from .aixi import AIXIAgent
+        from .kolmogorov_complexity import KolmogorovComplexityEstimator
+    except ImportError:
+        print("Warning: Could not import Universal Learning components")
 
 # Show attribution on library import
 _print_attribution()
