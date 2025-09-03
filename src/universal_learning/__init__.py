@@ -49,8 +49,49 @@ def _print_attribution():
         print("   ☕ Buy me a coffee → 🍺 Buy me a beer → 🏎️ Buy me a Lamborghini → ✈️ Buy me a private jet!")
 
 # Import modular implementations
-from .solomonoff_core import SolomonoffInductor, SolomonoffConfig, ComplexityMethod, CompressionAlgorithm
-from .solomonoff_core import create_fast_inductor, create_accurate_inductor, create_research_inductor
+from .core import (
+    SolomonoffInduction,
+    ProgramEnumerator,
+    ProgramGenerator, 
+    UTMSimulator,
+    KolmogorovComplexity,
+    UniversalPredictor,
+    AlgorithmicProbability
+)
+
+from .config import (
+    UniversalLearningConfig,
+    SolomonoffConfig,
+    ProgramEnumerationConfig,
+    ComplexityConfig,
+    PredictionConfig,
+    ProgramLanguage,
+    ComplexityMethod,
+    PredictionMethod,
+    EnumerationStrategy,
+    DataType,
+    ValidationMethod,
+    get_config,
+    list_presets
+)
+
+from .utils import (
+    analyze_sequence,
+    detect_patterns,
+    sequence_statistics,
+    validate_sequence,
+    compress_sequence,
+    estimate_compression_ratio,
+    available_compressors,
+    best_compressor,
+    validate_prediction_config,
+    validate_sequence_data,
+    sanitize_input_sequence,
+    TimeProfiler,
+    MemoryMonitor,
+    benchmark_prediction,
+    performance_summary
+)
 
 # Create backward-compatible classes to preserve existing functionality
 class UniversalLearner:
@@ -74,16 +115,10 @@ class UniversalLearner:
         if complexity_method is None:
             complexity_method = ComplexityMethod.HYBRID
         
-        # Create config object with the specified parameters
-        config = SolomonoffConfig(
-            complexity_method=complexity_method,
-            **kwargs
-        )
-        
-        self._inductor = SolomonoffInductor(
+        # Create using the new modular SolomonoffInduction class
+        self._inductor = SolomonoffInduction(
             max_program_length=max_program_length,
-            alphabet_size=alphabet_size,
-            config=config
+            **kwargs
         )
         print(f"🌌 Universal Learner initialized with {complexity_method} complexity method")
     
@@ -110,7 +145,7 @@ class UniversalLearner:
         
         # Use the inductor's analyze_sequence method
         try:
-            analysis = self._inductor.analyze_sequence_comprehensive(sequence)
+            analysis = self._inductor.analyze_sequence(' '.join(sequence))
             self._training_data = (X, y)
             self._fitted = True
         except Exception as e:
@@ -142,9 +177,12 @@ class UniversalLearner:
         predictions = []
         for item in items:
             try:
-                # Use algorithmic probability for prediction  
-                prob = self._inductor.algorithmic_probability(item)
-                predictions.append(1 if prob > 0.5 else 0)
+                # Use predict_next for prediction  
+                result = self._inductor.predict_next(item, num_predictions=1)
+                if hasattr(result, 'predictions') and result.predictions:
+                    predictions.append(1 if result.predictions[0] == '1' else 0)
+                else:
+                    predictions.append(np.random.randint(0, 2))
             except Exception:
                 # Fallback to random prediction
                 predictions.append(np.random.randint(0, 2))
@@ -232,7 +270,7 @@ class AIXIAgent:
     
     def __init__(self, horizon=10, discount_factor=0.99, **kwargs):
         """Initialize AIXI agent"""
-        self._solomonoff = SolomonoffInductor(**kwargs)
+        self._solomonoff = SolomonoffInduction(**kwargs)
         self.horizon = horizon
         self.discount_factor = discount_factor
         self.history = []
@@ -245,13 +283,16 @@ class AIXIAgent:
         self.history.append(observation)
         
         # Use Solomonoff prediction to estimate environment model
-        predictions = self._solomonoff.predict(observation, len(available_actions))
+        predictions = self._solomonoff.predict_next(str(observation), num_predictions=len(available_actions))
         
         # Choose action with highest expected value (simplified)
         best_action = 0
-        if hasattr(predictions, 'probabilities') and predictions.probabilities:
-            best_action = max(range(len(available_actions)), 
-                            key=lambda a: predictions.probabilities[a] if a < len(predictions.probabilities) else 0)
+        if hasattr(predictions, 'predictions') and predictions.predictions:
+            # Simple heuristic: choose based on first prediction
+            try:
+                best_action = min(int(predictions.predictions[0]) % len(available_actions), len(available_actions) - 1)
+            except:
+                best_action = 0
         
         return available_actions[best_action] if available_actions else None
     
@@ -281,7 +322,7 @@ class KolmogorovComplexityEstimator:
     def __init__(self, compression_method='gzip', **kwargs):
         """Initialize complexity estimator"""
         self.compression_method = compression_method
-        self._solomonoff = SolomonoffInductor(**kwargs)
+        self._kolmogorov = KolmogorovComplexity(**kwargs)
         print(f"🧮 Kolmogorov Complexity Estimator initialized with {compression_method}")
     
     def estimate_complexity(self, data):
@@ -294,15 +335,16 @@ class KolmogorovComplexityEstimator:
         compressed = gzip.compress(data)
         compression_complexity = len(compressed)
         
-        # Also get Solomonoff-based estimate if possible
+        # Also get Kolmogorov-based estimate if possible
         try:
-            solomonoff_complexity = self._solomonoff.estimate_complexity(data)
+            kolmogorov_result = self._kolmogorov.estimate_complexity(data.decode() if isinstance(data, bytes) else str(data))
+            kolmogorov_complexity = kolmogorov_result.compression_estimate
         except:
-            solomonoff_complexity = compression_complexity
+            kolmogorov_complexity = compression_complexity
         
         return {
             'compression_estimate': compression_complexity,
-            'solomonoff_estimate': solomonoff_complexity,
+            'kolmogorov_estimate': kolmogorov_complexity,
             'original_length': len(data),
             'compression_ratio': compression_complexity / len(data)
         }
@@ -315,9 +357,23 @@ class KolmogorovComplexityEstimator:
 _print_attribution()
 
 __all__ = [
-    # New modular classes
-    'SolomonoffInductor', 'SolomonoffConfig', 'ComplexityMethod', 'CompressionAlgorithm',
-    'create_fast_inductor', 'create_accurate_inductor', 'create_research_inductor',
+    # Core modular classes
+    'SolomonoffInduction', 'ProgramEnumerator', 'ProgramGenerator', 'UTMSimulator',
+    'KolmogorovComplexity', 'UniversalPredictor', 'AlgorithmicProbability',
+    
+    # Configuration classes
+    'UniversalLearningConfig', 'SolomonoffConfig', 'ProgramEnumerationConfig', 
+    'ComplexityConfig', 'PredictionConfig', 'get_config', 'list_presets',
+    
+    # Enums
+    'ProgramLanguage', 'ComplexityMethod', 'PredictionMethod', 'EnumerationStrategy',
+    'DataType', 'ValidationMethod',
+    
+    # Utilities
+    'analyze_sequence', 'detect_patterns', 'sequence_statistics', 'validate_sequence',
+    'compress_sequence', 'estimate_compression_ratio', 'available_compressors', 'best_compressor',
+    'validate_prediction_config', 'validate_sequence_data', 'sanitize_input_sequence',
+    'TimeProfiler', 'MemoryMonitor', 'benchmark_prediction', 'performance_summary',
     
     # Backward-compatible classes (restored functionality)
     'UniversalLearner', 'HypothesisProgram', 'Prediction', 'AIXIAgent', 'KolmogorovComplexityEstimator'
