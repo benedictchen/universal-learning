@@ -1,6 +1,6 @@
 """
-🧠 SOLOMONOFF INDUCTION - Modular Core Implementation
-====================================================
+Solomonoff Induction - Core Implementation
+==========================================
 
 # FIXME: Critical Research Accuracy Issues Based on Solomonoff (1964) Theory
 #
@@ -91,14 +91,39 @@ from typing import Dict, List, Tuple, Any, Optional, Union
 from dataclasses import dataclass
 from enum import Enum
 
-# Import all Solomonoff modules
-from .solomonoff_modules.program_generation import ProgramGenerationMixin
-from .solomonoff_modules.utm_simulation import UTMSimulationMixin
-from .solomonoff_modules.compression_methods import CompressionMethodsMixin
-from .solomonoff_modules.pattern_detection import PatternDetectionMixin
-from .solomonoff_modules.prediction_algorithms import PredictionAlgorithmsMixin
-from .solomonoff_modules.theoretical_analysis import TheoreticalAnalysisMixin
-from .solomonoff_modules.configuration_methods import ConfigurationMethodsMixin
+# Import modular components from proper structure
+from .core.solomonoff_induction import SolomonoffInduction
+from .core.program_enumeration import ProgramEnumerator, UTMSimulator
+from .core.kolmogorov_complexity import KolmogorovComplexity
+from .core.universal_prediction import UniversalPredictor
+from .core.algorithmic_probability import AlgorithmicProbability
+
+# Create mixins from modular components
+class ProgramGenerationMixin:
+    def __init__(self):
+        self.program_enumerator = ProgramEnumerator()
+        
+class UTMSimulationMixin:
+    def __init__(self):
+        self.utm_simulator = UTMSimulator()
+        
+class CompressionMethodsMixin:
+    def __init__(self):
+        self.complexity_measure = KolmogorovComplexity()
+        
+class PatternDetectionMixin:
+    pass  # Will be implemented with pattern detection algorithms
+    
+class PredictionAlgorithmsMixin:
+    def __init__(self):
+        self.universal_predictor = UniversalPredictor()
+        
+class TheoreticalAnalysisMixin:
+    def __init__(self):
+        self.algorithmic_probability = AlgorithmicProbability()
+        
+class ConfigurationMethodsMixin:
+    pass  # Configuration methods
 
 
 class ComplexityMethod(Enum):
@@ -210,6 +235,10 @@ class SolomonoffConfig:
     enable_caching: bool = True
     parallel_computation: bool = False
     max_cache_size: int = 1000
+    
+    # Algorithmic probability computation settings (for research-accurate implementation)
+    max_programs_to_evaluate: int = 10000
+    utm_timeout: float = 1.0
 
 
 class SolomonoffInductor(
@@ -603,106 +632,61 @@ class SolomonoffInductor(
         #    - Solomonoff's method requires: P(x_{n+1}|x_1...x_n) = Σ_{p:U(p) extends sequence} 2^(-|p|)
         #    - Missing: proper universal prior weighting of all programs
         #    - Missing: theoretical convergence guarantees
-        #    - CODE REVIEW SUGGESTION - Implement research-accurate algorithmic probability:
-        #      ```python
-        #      def compute_algorithmic_probability(self, sequence: List[int]) -> Dict[int, float]:
-        #          """Compute Solomonoff's exact algorithmic probability for next symbol"""
-        #          probabilities = {}
-        #          total_probability = 0.0
-        #          
-        #          # Enumerate programs in length-lexicographic order
-        #          for program_length in range(1, self.config.max_program_length + 1):
-        #              for program in self.enumerate_programs_of_length(program_length):
-        #                  try:
-        #                      # Run program with timeout
-        #                      output = self.run_program_with_timeout(program, 
-        #                                                           timeout=self.config.utm_timeout)
-        #                      
-        #                      # Check if program extends the sequence
-        #                      if output and self.extends_sequence(output, sequence):
-        #                          next_symbol = output[len(sequence)]
-        #                          program_probability = 2 ** (-program_length)  # 2^(-|p|)
-        #                          
-        #                          if next_symbol not in probabilities:
-        #                              probabilities[next_symbol] = 0.0
-        #                          probabilities[next_symbol] += program_probability
-        #                          total_probability += program_probability
-        #                          
-        #                  except (TimeoutError, RuntimeError):
-        #                      continue  # Program doesn't halt or produces error
-        #          
-        #          # Normalize probabilities
-        #          if total_probability > 0:
-        #              for symbol in probabilities:
-        #                  probabilities[symbol] /= total_probability
-        #          
-        #          return probabilities
-        #      ```
         #
         # 2. INCORRECT CONFIDENCE COMPUTATION
         #    - Current confidence is heuristic, not based on Solomonoff's theoretical framework
         #    - Missing: proper posterior probability computation over program hypotheses  
         #    - Missing: theoretical bounds on prediction error convergence
-        #    - CODE REVIEW SUGGESTION - Implement theoretical confidence bounds:
-        #      ```python
-        #      def compute_solomonoff_confidence(self, sequence: List[int], 
-        #                                       prediction: int) -> Tuple[float, Dict[str, Any]]:
-        #          """Compute theoretical confidence based on universal prior"""
-        #          # Get algorithmic probabilities
-        #          probs = self.compute_algorithmic_probability(sequence)
-        #          max_prob = max(probs.values()) if probs else 0.0
-        #          
-        #          # Compute prediction entropy
-        #          entropy = -sum(p * np.log2(p) for p in probs.values() if p > 0)
-        #          
-        #          # Theoretical confidence bounds (Solomonoff's convergence theorem)
-        #          n = len(sequence)
-        #          environment_complexity = self.estimate_environment_complexity(sequence)
-        #          theoretical_error_bound = environment_complexity / n + np.log(n) / n
-        #          
-        #          confidence_info = {
-        #              'algorithmic_probability': probs.get(prediction, 0.0),
-        #              'prediction_entropy': entropy,
-        #              'theoretical_error_bound': theoretical_error_bound,
-        #              'convergence_rate': 1.0 / n,
-        #              'environment_complexity_estimate': environment_complexity
-        #          }
-        #          
-        #          # Confidence based on probability mass and convergence bounds
-        #          base_confidence = probs.get(prediction, 0.0)
-        #          adjusted_confidence = base_confidence * (1 - theoretical_error_bound)
-        #          
-        #          return adjusted_confidence, confidence_info
-        #      ```
         #
         # 3. MISSING UNIVERSAL PRIOR VALIDATION
         #    - No validation that computed probabilities form proper universal prior
         #    - Missing: Kraft inequality verification for prefix-free encoding
         #    - Missing: normalization checks for probability measures
-        #    - CODE REVIEW SUGGESTION - Add theoretical validation:
-        #      ```python
-        #      def validate_universal_prior(self, computed_probs: Dict) -> Dict[str, Any]:
-        #          """Validate that computed probabilities satisfy theoretical requirements"""
-        #          validation_results = {}
-        #          
-        #          # Check probability normalization
-        #          total_prob = sum(computed_probs.values())
-        #          validation_results['normalized'] = abs(total_prob - 1.0) < 1e-10
-        #          
-        #          # Check non-negativity
-        #          validation_results['non_negative'] = all(p >= 0 for p in computed_probs.values())
-        #          
-        #          # Estimate Kraft inequality satisfaction for prefix-free property
-        #          program_lengths = self.get_program_lengths_for_predictions(computed_probs)
-        #          kraft_sum = sum(2**(-length) for length in program_lengths)
-        #          validation_results['kraft_inequality_satisfied'] = kraft_sum <= 1.0
-        #          
-        #          # Check convergence properties
-        #          validation_results['convergence_estimate'] = self.estimate_convergence_rate(computed_probs)
-        #          
-        #          return validation_results
-        #      ```
         
+        Provides the most accurate prediction possible using all available modules
+        and automatically selecting the best approach based on sequence characteristics.
+        
+        Args:
+            sequence: Input sequence for prediction
+            
+        Returns:
+            Dictionary with optimized prediction results
+        """
+        # Analyze sequence characteristics to select best method
+        if len(sequence) < 5:
+            # Use fast method for short sequences
+            original_method = self.config.complexity_method
+            self.config.complexity_method = ComplexityMethod.BASIC_PATTERNS
+            result = self.predict_next_with_confidence(sequence)
+            self.config.complexity_method = original_method
+        elif len(sequence) > 100:
+            # Use compression for long sequences
+            original_method = self.config.complexity_method
+            self.config.complexity_method = ComplexityMethod.COMPRESSION_BASED
+            result = self.predict_next_with_confidence(sequence)
+            self.config.complexity_method = original_method
+        else:
+            # Use configured method for medium sequences
+            result = self.predict_next_with_confidence(sequence)
+        
+        # Add stability analysis
+        stability = self.prediction_stability_analysis(sequence)
+        
+        # Add confidence threshold
+        adaptive_threshold = self.adaptive_prediction_threshold(sequence)
+        
+        return {
+            'prediction': result[0],
+            'confidence': result[1],
+            'probability_distribution': result[2],
+            'stability_analysis': stability,
+            'confidence_threshold': adaptive_threshold,
+            'recommendation': 'accept' if result[1] > adaptive_threshold else 'review'
+        }
+
+
+    def predict_sequence_optimized(self, sequence: List[int]) -> Dict[str, Any]:
+        """
         Provides the most accurate prediction possible using all available modules
         and automatically selecting the best approach based on sequence characteristics.
         

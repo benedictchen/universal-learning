@@ -1,9 +1,8 @@
 """
-📊 Algorithmic Probability
-=========================
+Algorithmic Probability Implementation
 
-This module implements algorithmic probability measures
-based on Solomonoff's universal distribution.
+Based on Solomonoff (1964) universal distribution:
+P(x) = Σ_{p:U(p)=x} 2^(-|p|)
 
 Author: Benedict Chen (benedict@benedictchen.com)
 """

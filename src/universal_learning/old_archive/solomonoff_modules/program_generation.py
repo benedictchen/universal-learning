@@ -9,7 +9,6 @@ Now imports from specialized modules to meet 800-line standard.
 Author: Benedict Chen (benedict@benedictchen.com)
 Based on: Solomonoff (1964) - Universal induction via program enumeration
 
-🎯 MODULAR ARCHITECTURE SUCCESS:
 Original: 2,356 lines (3x over limit) → 4 modules averaging 374 lines each
 Total reduction: 37% while preserving 100% functionality
 
@@ -27,7 +26,6 @@ import numpy as np
 from typing import List, Dict, Optional, Union
 from enum import Enum
 
-# Import the modular implementation
 from .program_generation_core import (
     ProgramGenerationMixin,
     ComplexityMethod,
@@ -107,7 +105,6 @@ Only internal organization changed.
 if __name__ == "__main__":
     print("🔮 Universal Learning - Program Generation Module")
     print("=" * 55)
-    print("📊 MODULARIZATION SUCCESS:")
     print(f"  Original: 2,356 lines (3x over 800-line limit)")
     print(f"  Refactored: 4 modules totaling 1,495 lines (37% reduction)")
     print(f"  All modules under 800-line limit ✅")

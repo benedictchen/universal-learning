@@ -13,13 +13,12 @@ The package provides both modular and backward-compatible implementations:
 - solomonoff_core: Modular Solomonoff Induction with clean separation of concerns
 - Backward-compatible classes: Original API preserved for existing users
 
-🎯 ELI5 Explanation:
-Universal Learning is like having a super-smart student who can learn ANY pattern
-from ANY kind of data, using the most mathematically optimal method possible!
-
-📊 Technical Details:
+Technical Implementation:
 Implements optimal learning through algorithmic information theory and universal priors,
 providing the theoretical foundation for optimal prediction and learning in any computable environment.
+
+Core concept: Uses Solomonoff's algorithmic probability P(x) = Σ_{p:U(p)=x} 2^(-|p|)
+where U is a universal Turing machine and |p| is program length.
 """
 
 __version__ = "1.0.0"
@@ -48,7 +47,6 @@ def _print_attribution():
         print("")
         print("   ☕ Buy me a coffee → 🍺 Buy me a beer → 🏎️ Buy me a Lamborghini → ✈️ Buy me a private jet!")
 
-# Import modular implementations
 from .core import (
     SolomonoffInduction,
     ProgramEnumerator,
