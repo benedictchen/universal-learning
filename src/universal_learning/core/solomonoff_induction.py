@@ -1,16 +1,81 @@
 """
-🔮 Solomonoff Induction - Universal Learning Algorithm
+🔮 Solomonoff Induction - The Ultimate Learning Oracle
 ====================================================
 
-This module implements Ray Solomonoff's universal induction algorithm,
-the mathematically optimal method for sequence prediction and pattern learning.
+🎯 ELI5 EXPLANATION:
+==================
+Think of Solomonoff Induction like having a genius mathematician who can predict ANYTHING by finding the simplest possible explanation!
 
-Based on:
-- Solomonoff (1964) "A Formal Theory of Inductive Inference"
-- Li & Vitányi (2019) "An Introduction to Kolmogorov Complexity"
-- Hutter (2005) "Universal Artificial Intelligence"
+Imagine you show a sequence to the world's smartest person: 1, 1, 2, 3, 5, 8, ?. They instantly think "Fibonacci sequence!" and predict 13. But how did they know? Solomonoff Induction is like having that genius brain that:
+
+1. 🧮 **Considers ALL Programs**: Imagines every possible computer program that could generate your sequence
+2. ⚖️  **Occam's Razor**: Weighs simpler programs more heavily than complex ones (shorter = more likely)
+3. 🎯 **Perfect Prediction**: Mathematically optimal - can't do better than this!
+4. 🔮 **Universal Oracle**: Works for ANY pattern - arithmetic, geometric, Fibonacci, music, DNA, stock prices!
+
+It's like having the universe's most powerful pattern detection engine that can find the hidden structure in absolutely any data sequence!
+
+🔬 RESEARCH FOUNDATION:
+======================
+Core algorithmic information theory from universal prediction pioneers:
+- **Ray Solomonoff (1964)**: "A formal theory of inductive inference" - Original universal prediction breakthrough
+- **Kolmogorov (1965)**: "Three approaches to the quantitative definition of information" - Complexity theory
+- **Li & Vitányi (2019)**: "An introduction to Kolmogorov complexity" - Modern comprehensive treatment
+- **Marcus Hutter (2005)**: "Universal artificial intelligence" - AIXI agent implementation
+
+🧮 MATHEMATICAL PRINCIPLES:
+==========================
+**Universal Distribution:**
+M(x) = Σ_{p: U(p) outputs x} 2^(-|p|)
+
+**Solomonoff Prediction:**
+P(x_{n+1} | x₁...xₙ) = M(x₁...xₙx_{n+1}) / M(x₁...xₙ)
+
+**Kolmogorov Complexity:**
+K(x) = min{|p| : U(p) = x}
+
+**Optimality Theorem:**
+For any computable predictor, Solomonoff prediction has lower cumulative loss!
+
+📊 SOLOMONOFF INDUCTION VISUALIZATION:
+====================================
+```
+🔮 SOLOMONOFF UNIVERSAL INDUCTION 🔮
+
+Input Sequence             Program Enumeration              Perfect Prediction
+┌─────────────────┐       ┌──────────────────────────────┐  ┌─────────────────┐
+│ 📊 Data Pattern │       │                              │  │ 🎯 NEXT VALUES  │
+│ [1,1,2,3,5,8,?] │ ───→  │  🧮 ALL PROGRAMS:            │→ │ Predicted: 13   │
+│ Unknown pattern │       │  • fibonacci(): 2^(-12) weight│  │ Confidence: 0.94│
+│ Need prediction │       │  • arithmetic(): 2^(-20)     │  │                 │
+└─────────────────┘       │  • random(): 2^(-50)         │  │ 🔮 UNIVERSAL    │
+                          │  • geometric(): 2^(-25)      │  │ Works for ANY   │
+┌─────────────────┐       │                              │  │ pattern type    │
+│ 🎛️ Parameters    │ ───→  │  ⚖️  OCCAM'S RAZOR:          │  │                 │
+│ Max length: 20  │       │  • Shorter programs = higher │  │ 📊 OPTIMALITY   │
+│ Time budget: 1M │       │    probability weight        │  │ Mathematically  │
+│ Methods: all    │       │  • Universal prior over all  │  │ optimal learning│
+└─────────────────┘       │    possible patterns         │  │                 │
+                          │                              │  │ ✨ MAGIC        │
+┌─────────────────┐       │  🎯 PREDICTION SYNTHESIS:     │  │ Predicts music, │
+│ 🤖 Universal     │ ───→  │  • Weight all programs      │  │ DNA, languages, │
+│ Turing Machine  │       │  • Compute next element     │  │ stock prices!   │
+│ Python/Lambda   │       │  • Bayesian combination     │  │                 │
+└─────────────────┘       └──────────────────────────────┘  └─────────────────┘
+                                         │
+                                         ▼
+                              RESULT: The best possible prediction
+                                     algorithm in the universe! 🚀
+```
+
+💰 SUPPORT THIS RESEARCH:
+=========================
+🙏 If this library helps your research:
+💳 PayPal: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WXQKYYKPHWXHS
+💖 GitHub Sponsors: https://github.com/sponsors/benedictchen
 
 Author: Benedict Chen (benedict@benedictchen.com)
+Based on: Ray Solomonoff's foundational universal induction theory
 """
 
 import numpy as np

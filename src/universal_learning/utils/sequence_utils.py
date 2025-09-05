@@ -1,4 +1,35 @@
 """
+🔧 Sequence Utils
+==================
+
+🔬 Research Foundation:
+======================
+Based on algorithmic information theory and universal induction:
+- Solomonoff, R.J. (1964). "A Formal Theory of Inductive Inference"
+- Li, M. & Vitányi, P. (1997). "An Introduction to Kolmogorov Complexity and Its Applications"
+- Hutter, M. (2005). "Universal Artificial Intelligence"
+🎯 ELI5 Summary:
+This is like a toolbox full of helpful utilities! Just like how a carpenter has 
+different tools for different jobs (hammer, screwdriver, saw), this file contains helpful 
+functions that other parts of our code use to get their work done.
+
+🧪 Technical Details:
+===================
+Implementation details and technical specifications for this component.
+Designed to work seamlessly within the research framework while
+maintaining high performance and accuracy standards.
+
+📋 Component Integration:
+========================
+    ┌──────────┐
+    │   This   │
+    │Component │ ←→ Other Components
+    └──────────┘
+         ↑↓
+    System Integration
+
+"""
+"""
 📊 Sequence Analysis Utilities
 =============================
 

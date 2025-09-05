@@ -1,4 +1,21 @@
 """
+⚙️ Solomonoff Comprehensive Config
+===================================
+
+🎯 ELI5 Summary:
+Think of this like a control panel for our algorithm! Just like how your TV remote 
+has different buttons for volume, channels, and brightness, this file has all the settings 
+that control how our AI algorithm behaves. Researchers can adjust these settings to get 
+the best results for their specific problem.
+
+🧪 Technical Details:
+===================
+Implementation details and technical specifications for this component.
+Designed to work seamlessly within the research framework while
+maintaining high performance and accuracy standards.
+
+"""
+"""
 Solomonoff induction configuration options.
 
 Based on research from:
@@ -104,12 +121,12 @@ class UTMImplementation(Enum):
 # ═══════════════════════════════════════════════════════════════════
 
 @dataclass
-class SolomonoffComprehensiveConfig:
+class SolomonoffConfig:
     """
-    🎯 COMPLETE USER CONTROL: All research solutions configurable
+    Solomonoff induction configuration following 1964 theoretical framework.
     
-    This gives users complete control over every aspect of Solomonoff induction,
-    implementing ALL the solutions from research comments with research citations.
+    Controls program generation, algorithmic probability computation,
+    and universal prediction parameters.
     """
     
     # ═══════════════════════════════════════════════════════════════════
@@ -350,12 +367,12 @@ class SolomonoffComprehensiveConfig:
 
 
 # ═══════════════════════════════════════════════════════════════════
-# 🎯 PRESET CONFIGURATIONS FOR COMMON USE CASES
+# PRESET CONFIGURATIONS FOR COMMON USE CASES
 # ═══════════════════════════════════════════════════════════════════
 
-def create_research_accurate_config() -> SolomonoffComprehensiveConfig:
+def create_research_accurate_config() -> SolomonoffConfig:
     """Maximum research accuracy - implements all theoretical requirements"""
-    return SolomonoffComprehensiveConfig(
+    return SolomonoffConfig(
         algorithmic_probability_method=AlgorithmicProbabilityMethod.SOLOMONOFF_EXACT,
         confidence_method=ConfidenceComputationMethod.SOLOMONOFF_CONVERGENCE_BOUNDS,
         validation_methods=[
@@ -370,9 +387,9 @@ def create_research_accurate_config() -> SolomonoffComprehensiveConfig:
         validation_strictness="strict"
     )
 
-def create_fast_approximation_config() -> SolomonoffComprehensiveConfig:
+def create_fast_approximation_config() -> SolomonoffConfig:
     """Fast approximation - good balance of accuracy and speed"""
-    return SolomonoffComprehensiveConfig(
+    return SolomonoffConfig(
         algorithmic_probability_method=AlgorithmicProbabilityMethod.COMPRESSION_APPROXIMATION,
         confidence_method=ConfidenceComputationMethod.ENTROPY_BASED_CONFIDENCE,
         validation_methods=[
@@ -384,9 +401,9 @@ def create_fast_approximation_config() -> SolomonoffComprehensiveConfig:
         enable_result_caching=True
     )
 
-def create_ensemble_config() -> SolomonoffComprehensiveConfig:
+def create_ensemble_config() -> SolomonoffConfig:
     """Ensemble approach - combines multiple methods for robustness"""
-    return SolomonoffComprehensiveConfig(
+    return SolomonoffConfig(
         algorithmic_probability_method=AlgorithmicProbabilityMethod.MULTI_METHOD_ENSEMBLE,
         confidence_method=ConfidenceComputationMethod.PREDICTION_ENSEMBLE_VARIANCE,
         ensemble_methods=[
@@ -408,9 +425,9 @@ def create_ensemble_config() -> SolomonoffComprehensiveConfig:
         ]
     )
 
-def create_theoretical_validation_config() -> SolomonoffComprehensiveConfig:
+def create_theoretical_validation_config() -> SolomonoffConfig:
     """Maximum theoretical validation - tests all universal prior properties"""
-    return SolomonoffComprehensiveConfig(
+    return SolomonoffConfig(
         algorithmic_probability_method=AlgorithmicProbabilityMethod.SOLOMONOFF_APPROXIMATED,
         confidence_method=ConfidenceComputationMethod.POSTERIOR_PROBABILITY,
         validation_methods=[
@@ -471,10 +488,10 @@ if __name__ == "__main__":
     
     for name, result in results.items():
         print(f"\n📋 {name.upper()} Configuration:")
-        print(f"   ✅ Valid: {result['valid']}")
+        # Removed print spam: f"   ...
         if result['errors']:
             print(f"   ❌ Errors: {result['errors']}")
         print(f"   🧠 Methods: {result['methods']}")
-        print(f"   ⚡ Complexity: {result['complexity']['time_complexity']}")
+        # Removed print spam: f"   ...
         
-    print("\n🎯 Research-accurate Solomonoff induction implementations with full user configuration!")
+    # Removed print spam: "\n...

@@ -26,7 +26,7 @@ try:
         SolomonoffInductor, SolomonoffConfig, ComplexityMethod, CompressionAlgorithm,
         create_fast_inductor, create_accurate_inductor
     )
-    print("✅ Successfully imported modular Solomonoff components")
+    # # Removed print spam: "...
 except ImportError as e:
     print(f"❌ Import failed: {e}")
     sys.exit(1)
@@ -34,12 +34,12 @@ except ImportError as e:
 
 def test_basic_initialization():
     """Test basic initialization and configuration"""
-    print("\n🔧 Testing basic initialization...")
+    # Removed print spam: "\n...
     
     # Test default initialization
     try:
         inductor = SolomonoffInductor()
-        print("✅ Default initialization successful")
+        # # Removed print spam: "...
     except Exception as e:
         print(f"❌ Default initialization failed: {e}")
         return False
@@ -52,7 +52,7 @@ def test_basic_initialization():
             max_cache_size=100
         )
         inductor = SolomonoffInductor(alphabet_size=10, config=config)
-        print("✅ Custom configuration successful")
+        # # Removed print spam: "...
     except Exception as e:
         print(f"❌ Custom configuration failed: {e}")
         return False
@@ -66,14 +66,14 @@ def test_factory_functions():
     
     try:
         fast_inductor = create_fast_inductor(alphabet_size=2)
-        print("✅ Fast inductor creation successful")
+        # # Removed print spam: "...
     except Exception as e:
         print(f"❌ Fast inductor creation failed: {e}")
         return False
     
     try:
         accurate_inductor = create_accurate_inductor(alphabet_size=4)
-        print("✅ Accurate inductor creation successful")
+        # # Removed print spam: "...
     except Exception as e:
         print(f"❌ Accurate inductor creation failed: {e}")
         return False
@@ -83,7 +83,7 @@ def test_factory_functions():
 
 def test_simple_predictions():
     """Test simple prediction functionality"""
-    print("\n🎯 Testing simple predictions...")
+    # Removed print spam: "\n...
     
     inductor = create_fast_inductor(alphabet_size=10)
     
@@ -92,10 +92,10 @@ def test_simple_predictions():
         constant_seq = [5, 5, 5, 5, 5]
         predictions = inductor.predict_next(constant_seq)
         most_likely = max(predictions.keys(), key=lambda k: predictions[k])
-        print(f"✅ Constant sequence [5,5,5,5,5] -> predicted next: {most_likely} (expected: 5)")
+        # Removed print spam: f"...")
         
         if most_likely == 5:
-            print("  ✅ Prediction matches expected pattern")
+            # Removed print spam: "  ...
         else:
             print("  ⚠️  Prediction doesn't match expected pattern (but algorithm is working)")
         
@@ -108,7 +108,7 @@ def test_simple_predictions():
         arithmetic_seq = [1, 2, 3, 4, 5]
         predictions = inductor.predict_next(arithmetic_seq)
         most_likely = max(predictions.keys(), key=lambda k: predictions[k])
-        print(f"✅ Arithmetic sequence [1,2,3,4,5] -> predicted next: {most_likely} (expected: 6)")
+        # Removed print spam: f"...")
         
     except Exception as e:
         print(f"❌ Arithmetic sequence prediction failed: {e}")
@@ -119,7 +119,7 @@ def test_simple_predictions():
         fib_seq = [1, 1, 2, 3, 5]
         predictions = inductor.predict_next(fib_seq)
         most_likely = max(predictions.keys(), key=lambda k: predictions[k])
-        print(f"✅ Fibonacci sequence [1,1,2,3,5] -> predicted next: {most_likely} (expected: 8)")
+        # Removed print spam: f"...")
         
     except Exception as e:
         print(f"❌ Fibonacci sequence prediction failed: {e}")
@@ -138,7 +138,7 @@ def test_comprehensive_analysis():
         sequence = [1, 4, 9, 16, 25]  # Perfect squares
         analysis = inductor.analyze_sequence_comprehensive(sequence, include_programs=True)
         
-        print("✅ Comprehensive analysis completed")
+        # # Removed print spam: "...
         print(f"  • Sequence length: {analysis['sequence_info']['length']}")
         print(f"  • Complexity estimate: {analysis['theoretical_analysis']['complexity_estimate']:.2f}")
         print(f"  • Predicted next: {analysis['prediction_analysis']['most_likely_next']}")
@@ -160,15 +160,15 @@ def test_configuration_methods():
     try:
         # Test configuration summary
         config_summary = inductor.get_configuration_summary()
-        print("✅ Configuration summary generated")
+        # # Removed print spam: "...
         
         # Test validation
         warnings = inductor.validate_configuration()
-        print(f"✅ Configuration validation completed ({len(warnings)} warnings)")
+        # Removed print spam: f"...} warnings)")
         
         # Test pattern type configuration
         inductor.configure_pattern_types(['constant', 'arithmetic', 'periodic'])
-        print("✅ Pattern type configuration successful")
+        # # Removed print spam: "...
         
     except Exception as e:
         print(f"❌ Configuration testing failed: {e}")
@@ -196,7 +196,7 @@ def test_different_complexity_methods():
             predictions = inductor.predict_next(test_sequence)
             most_likely = max(predictions.keys(), key=lambda k: predictions[k])
             
-            print(f"✅ Method {method.value}: predicted next = {most_likely}")
+            # Removed print spam: f"...
             
         except Exception as e:
             print(f"❌ Method {method.value} failed: {e}")
@@ -247,7 +247,7 @@ def main():
     print(f"\nOverall: {passed}/{total} tests passed")
     
     if passed == total:
-        print("\n🎉 All tests passed! Modular Solomonoff implementation is working correctly.")
+        # Removed print spam: "\n...
         return 0
     else:
         print(f"\n⚠️  {total - passed} tests failed. Please check the implementation.")

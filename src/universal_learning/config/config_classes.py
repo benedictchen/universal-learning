@@ -1,4 +1,43 @@
 """
+⚙️ Config Classes
+==================
+
+🔬 Research Foundation:
+======================
+Based on algorithmic information theory and universal induction:
+- Solomonoff, R.J. (1964). "A Formal Theory of Inductive Inference"
+- Li, M. & Vitányi, P. (1997). "An Introduction to Kolmogorov Complexity and Its Applications"
+- Hutter, M. (2005). "Universal Artificial Intelligence"
+🎯 ELI5 Summary:
+Think of this like a control panel for our algorithm! Just like how your TV remote 
+has different buttons for volume, channels, and brightness, this file has all the settings 
+that control how our AI algorithm behaves. Researchers can adjust these settings to get 
+the best results for their specific problem.
+
+🧪 Technical Details:
+===================
+Implementation details and technical specifications for this component.
+Designed to work seamlessly within the research framework while
+maintaining high performance and accuracy standards.
+
+⚙️ Configuration Architecture:
+==============================
+    ┌─────────────────────────┐
+    │    USER SETTINGS        │
+    ├─────────────────────────┤
+    │ • Algorithm Parameters  │
+    │ • Performance Options   │
+    │ • Research Preferences  │
+    │ • Output Formats        │
+    └─────────────────────────┘
+              ↓
+    ┌─────────────────────────┐
+    │      ALGORITHM          │
+    │    (Configured)         │
+    └─────────────────────────┘
+
+"""
+"""
 ⚙️ Configuration Classes for Universal Learning
 ==============================================
 
